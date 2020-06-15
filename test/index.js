@@ -1,11 +1,21 @@
 const XPromise = require('../xPromise')
 
 const promise = new XPromise((resolve, reject) => {
-    reject(2)
+    setTimeout(() => {
+        resolve(1)
+    }, 3000)
 })
 
-promise.then((value) => {
-    console.log('value', value)
+const promise2 = promise.then((value) => {
+    console.log('value1', value)
+    return new Error('你好啊 错误')
 }, (reason) => {
-    console.log('reason', reason)
+    console.log('reason1', reason)
+})
+
+
+promise2.then((value) => {
+    console.log('value2', value)
+}, (reason) => {
+    console.log('reason2', reason)
 })
